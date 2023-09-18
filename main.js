@@ -61,3 +61,23 @@ app.controller("secondController", function ($scope) {
     this.addLesson = () => console.log("Add new lesson")
     $scope.secondCtrl = this
 })
+
+/*----------------------------------------------------------*/
+
+/*
+app.directive('func', function (){
+    return function (scope, element, attrs) {
+        console.log("This is my first directive")
+    }
+})*/
+app.directive('func', function (){
+    return{
+        link: function (scope, element, attrs) {
+            console.log("This is my first directive")
+            console.log('scope', scope)
+            console.log('element', element)
+            console.log('attrs', attrs)
+            element.text('This is my magic directive')
+    }
+    }
+})
