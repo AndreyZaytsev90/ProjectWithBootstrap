@@ -28,7 +28,7 @@
         <input type="text" ng-model="laptop">
         {{laptop}}
     </label>
-<!-------------------------------------------------------->
+    <!----------------------------------------------------------------------------->
     <div ng-controller="first">
         <input type="text" ng-model="myFactory.hello">
         {{myFactory.hello}}
@@ -37,7 +37,7 @@
         <input type="text" ng-model="myFactory.hello">
         {{myFactory.hello}}
     </div>
-<!------------------------------------------------------------>
+    <!------------------------------------------------------------------------------>
     <div ng-controller="third">
         {{hello}}
         {{getMyLaptop()}}
@@ -46,13 +46,22 @@
         {{hello}}
         {{myFactory.getHelloWorld()}}
     </div>
-<!--------------------------------------------------------------->
+    <!------------------------------------------------------------------------------>
     <div ng-controller="myBooks">
         <div ng-controller="HTMLbook">
             <button type="button" class="btn btn-outline-success" ng-click="snowHTMLbook()">Show HTML Book</button>
         </div>
         <div ng-controller="CSSbook">
             <button type="button" class="btn btn-outline-success" ng-click="snowCSSbook()">Show CSS Book</button>
+        </div>
+        <!---------------------------------------------------------------->
+        <div ng-controller="mainController as mainCtrl">
+            {{mainCtrl.myLesson}}
+            <div ng-controller="firstController as firstCtrl">
+                <div ng-controller="secondController">
+                    <button type="button" class="btn btn-primary btn-lg" ng-click="secondCtrl.addLesson()">Add Lesson</button>
+                </div>
+            </div>
         </div>
 
     </div>

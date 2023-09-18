@@ -33,7 +33,7 @@ app.factory("myFactory", function () {
         }
     }
 })
-
+/*-----------------------------------------------------------------------*/
 
 app.controller("myBooks", function ($scope) {
     $scope.snowCSSbook = function () {
@@ -44,16 +44,20 @@ app.controller("myBooks", function ($scope) {
     }
 })
 app.controller("HTMLbook", function ($scope) {
-
-    }
-)
-
+})
 app.controller("CSSbook", function ($scope) {
+})
+/*-----------------------------------------------------------------------*/
 
-    }
-)
+app.controller("mainController", function () {
+    this.myLesson = "Lesson"
+})
 
+app.controller("firstController", function () {
 
+})
 
-
-
+app.controller("secondController", function ($scope) {
+    this.addLesson = () => console.log("Add new lesson")
+    $scope.secondCtrl = this
+})
