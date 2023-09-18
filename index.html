@@ -37,7 +37,16 @@
         <input type="text" ng-model="myFactory.hello">
         {{myFactory.hello}}
     </div>
-
+<!------------------------------------------------------------>
+    <div ng-controller="third">
+        {{hello}}
+        {{getMyLaptop()}}
+        <button type="button" class="btn btn-success" ng-click="setHello('foo')">Set</button>
+        <button type="button" class="btn btn-success" ng-click="setHello('bar')">Bar</button>
+        {{hello}}
+        {{myFactory.getHelloWorld()}}
+    </div>
+<!--------------------------------------------------------------->
 </div>
 </body>
 </html>

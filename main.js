@@ -1,4 +1,4 @@
-app = angular.module("app", [])
+let app = angular.module("app", [])
 
 app.controller("myCtrl", function ($scope) {
     $scope.hello = 55
@@ -14,8 +14,23 @@ app.controller("second", function ($scope, myFactory) {
     $scope.twoHello = "hello world"
 })
 
+app.controller("third", function ($scope, myFactory) {
+    $scope.hello = "Hello world"
+    $scope.getMyLaptop = function () {
+        return "MacBook M1 pro"
+    }
+    $scope.setHello = function (text) {
+       $scope.hello = text
+    }
+    $scope.myFactory = myFactory
+})
+
 app.factory("myFactory", function () {
     return {
-        hello: "hello world"
+        hello: "hello world",
+        getHelloWorld: function () {
+            return "hello world"
+        }
     }
 })
+
