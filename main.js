@@ -20,7 +20,7 @@ app.controller("third", function ($scope, myFactory) {
         return "MacBook M1 pro"
     }
     $scope.setHello = function (text) {
-       $scope.hello = text
+        $scope.hello = text
     }
     $scope.myFactory = myFactory
 })
@@ -33,4 +33,27 @@ app.factory("myFactory", function () {
         }
     }
 })
+
+
+app.controller("myBooks", function ($scope) {
+    $scope.snowCSSbook = function () {
+        console.log("This is CSS book")
+    }
+    $scope.snowHTMLbook = function () {
+        console.log("This is HTML book")
+    }
+})
+app.controller("HTMLbook", function ($scope) {
+
+    }
+)
+
+app.controller("CSSbook", function ($scope) {
+
+    }
+)
+
+
+
+
 
