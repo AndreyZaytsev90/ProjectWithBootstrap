@@ -85,3 +85,18 @@ app.directive('func', function (){
     }
     }
 })
+
+/*------------------------------Фильтры----------------------------------*/
+
+app.controller('mainCtrl', function ($scope){
+    $scope.money1 = '$200'
+    $scope.money2 = '200$'
+    $scope.money3 = '200'
+})
+app.filter('filterMoney', function (){
+return function (str) {
+   let firstChar = srt.slice(0,1)
+   let lastChar = srt.slice(0,1)
+   let char = srt.slice(0,1)
+}
+})
