@@ -95,8 +95,14 @@ app.controller('mainCtrl', function ($scope){
 })
 app.filter('filterMoney', function (){
 return function (str) {
-   let firstChar = srt.slice(0,1)
-   let lastChar = srt.slice(0,1)
-   let char = srt.slice(0,1)
+   let firstChar = str.slice(0,1)
+   let lastChar = str.slice(-1)
+    if (firstChar === "$"){
+        return str
+    } else if (lastChar === "$"){
+        return "$" + str.slice(0, str.length - 1)
+    }
+    return "$" + str
 }
 })
+/*-----------------------------------------------------------------------*/
