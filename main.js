@@ -155,11 +155,19 @@ app.directive('newBar', function () {
     }
 })
 
+/*-----------------------------------------------------------------------*/
 
 
 
-
-
+app.directive('newTeg', function (){
+    return {
+        restrict: 'E',
+        templateUrl: './element.html',
+        link: function (scope, element, attrs) {
+            console.log('directive')
+        }
+    }
+})
 
 
 
