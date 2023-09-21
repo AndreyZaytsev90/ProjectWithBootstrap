@@ -117,7 +117,7 @@ app.directive('fooBar', function () {
 })
 /*-----------------------------------------------------------------------*/
 
-app.directive('funcBar', function () {
+app.directive('funcBar', function ($templateCache) {
     const myBookmarks = [
         {id: 1, name: 'AngularJS'},
         {id: 2, name: 'JavaScript'},
@@ -131,6 +131,7 @@ app.directive('funcBar', function () {
             console.log('funcBar')
             /*scope.name = 'Andrey'*/
             scope.bookmarks = myBookmarks
+            console.log($templateCache)
         },
     }
 })
@@ -162,7 +163,7 @@ app.directive('newBar', function () {
 app.directive('newTeg', function (){
     return {
         restrict: 'E',
-        templateUrl: './element.html',
+        templateUrl: 'element.html',
         link: function (scope, element, attrs) {
             console.log('directive')
         }
@@ -170,9 +171,11 @@ app.directive('newTeg', function (){
 })
 
 
+/*-----------------------------------------------------------------------*/
 
-
-
+app.run(function ($templateCache) {
+    $templateCache.put('element.html', '<div ng-repeat="myBooks in bookmarks" class="shadow p-3 mb-5 bg-light rounded">{{myBooks.name}}</div>')
+})
 
 
 
