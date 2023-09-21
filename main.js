@@ -70,50 +70,103 @@ app.directive('func', function (){
         console.log("This is my first directive")
     }
 })*/
-app.directive('func', function (){
-    return{
+app.directive('func', function () {
+    return {
         link: function (scope, element, attrs) {
-           /* console.log("This is my first directive")
-            console.log('scope', scope)
-            console.log('element', element)
-            console.log('attrs', attrs)
-            element.text('This is my magic directive')*/
+            /* console.log("This is my first directive")
+             console.log('scope', scope)
+             console.log('element', element)
+             console.log('attrs', attrs)
+             element.text('This is my magic directive')*/
             element.on('click', function () {
                 console.log('click')
                 element.text() === "Func" ? element.text('Bar') : element.text('Func')
             })
-    }
+        }
     }
 })
 
 /*------------------------------Фильтры----------------------------------*/
 
-app.controller('mainCtrl', function ($scope){
+app.controller('mainCtrl', function ($scope) {
     $scope.money1 = '$200'
     $scope.money2 = '200$'
     $scope.money3 = '200'
 })
-app.filter('filterMoney', function (){
-return function (str) {
-   let firstChar = str.slice(0,1)
-   let lastChar = str.slice(-1)
-    if (firstChar === "$"){
-        return str
-    } else if (lastChar === "$"){
-        return "$" + str.slice(0, str.length - 1)
+app.filter('filterMoney', function () {
+    return function (str) {
+        let firstChar = str.slice(0, 1)
+        let lastChar = str.slice(-1)
+        if (firstChar === "$") {
+            return str
+        } else if (lastChar === "$") {
+            return "$" + str.slice(0, str.length - 1)
+        }
+        return "$" + str
     }
-    return "$" + str
-}
 })
 /*-----------------------------------------------------------------------*/
 
 app.directive('fooBar', function () {
     return {
         restrict: 'EAС',
-        link: function(){
+        link: function () {
             console.log('fooBar')
         }
     }
 })
 /*-----------------------------------------------------------------------*/
+
+app.directive('funcBar', function () {
+    const myBookmarks = [
+        {id: 1, name: 'AngularJS'},
+        {id: 2, name: 'JavaScript'},
+        {id: 2, name: 'React'},
+    ]
+
+    return {
+        restrict: 'E',
+        template: '<div ng-repeat="myBooks in bookmarks" class="text-warning">{{myBooks.name}}</div>',
+        link: function (scope, element, attrs) {
+            console.log('funcBar')
+            /*scope.name = 'Andrey'*/
+            scope.bookmarks = myBookmarks
+        },
+    }
+})
+
+/*-----------------------------------------------------------------------*/
+
+app.controller('transcludeD', function ($scope) {
+    $scope.myName = 'Andrey'
+})
+app.directive('newBar', function () {
+    return {
+        restrict: 'E',
+        transclude: true,
+        template: 'This is my super directive <span ng-transclude></span>',
+        link: function (scope, element, attrs, ctrl, transclude) {
+            console.log('This is my ditective')
+            transclude(scope, function (clone, scope){
+                console.log('!', clone, scope)
+                element.append(clone)
+            })
+        }
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
