@@ -178,6 +178,32 @@ app.run(function ($templateCache) {
 })
 
 
+/*-----------------------------------------------------------------------*/
 
+app.controller('newCtrl', function ($scope) {
+    console.log('ctrl scope', $scope)
+    $scope.arr = []
+    $scope.hello = 'Hello'
+    
+    $scope.posts = [
+        {id: 1, name: 'post1'},
+        {id: 2, name: 'post2'}
+    ]
+    
+    $scope.getPosts = function (){
+        return $scope.posts
+    }
+})
 
-
+app.directive('post', function () {
+    return {
+        scope: false,
+        template: '<span ng-repeat="post in getPosts()">{{post.name}}</span>',
+        restrict: 'E',
+        link: function (scope, element, attrs) {
+            console.log('dir scope', scope)
+            scope.hello = 'Hello Andrey'
+        }
+    }
+})
+/*-----------------------------------------------------------------------*/
