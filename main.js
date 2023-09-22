@@ -250,3 +250,13 @@ app.directive('isolatedScope', function () {
         }
     }
 })
+/*-----------------------------------------------------------------------------------------------------*/
+
+app.directive('wrapIn', function (){
+    return {
+        transclude: 'element',
+        link: function (scope, element, attrs){
+            console.log('wrapIn')
+        }
+    }
+})
