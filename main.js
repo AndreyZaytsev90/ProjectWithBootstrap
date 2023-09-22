@@ -207,3 +207,19 @@ app.directive('post', function () {
     }
 })
 /*-----------------------------------------------------------------------*/
+
+app.controller('bookCtrl', function ($scope){
+    $scope.name = 'AngularJS'
+})
+
+app.directive('bookDir', function (){
+    return {
+        restrict: 'E',
+        scope: true,
+        template: '<div>This is directive book: {{name}}<input type="test" ng-model="name"></div>',
+        link: function (scope, element, attrs) {
+            console.log(`This is directive book: ${scope.name}`)
+        }
+    }
+})
+/*-----------------------------------------------------------------------*/
