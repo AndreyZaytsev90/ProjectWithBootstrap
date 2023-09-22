@@ -106,16 +106,32 @@
 <!-------------------------------------------------------------------------->
 
 <div ng-controller="newCtrl">
-    {{hello}}
+    <div>{{hello}}</div>
     <post></post>
 </div>
 
 <!-------------------------------------------------------------------------->
 
 <div ng-controller="bookCtrl">
-    This is ctrl book: {{name}}
+    <div>This is ctrl book: {{name}}</div>
+    ------------------------------------------------
     <book-dir></book-dir>
+    ------------------------------------------------
 </div>
-<!-------------------------------------------------------------------------->
+
+<!-----------------------------isolated-scope-------------------------------->
+
+<div ng-controller="Ctrl1">
+    <div>This is ctrl1 name: {{name}}</div>
+    <div>This is ctrl1 color: {{color}}</div>
+    <button ng-click="reverse()">Reverse Name</button>
+    ============================----===========================
+    <isolated-scope name="{{name}}" color="color" reverse="reverse()"></isolated-scope>
+</div>
+
+
+
+
+
 </body>
 </html>

@@ -148,7 +148,7 @@ app.directive('newBar', function () {
         template: 'This is my super directive <span ng-transclude></span>',
         link: function (scope, element, attrs, ctrl, transclude) {
             console.log('This is my ditective')
-            transclude(scope, function (clone, scope){
+            transclude(scope, function (clone, scope) {
                 console.log('!', clone, scope)
                 element.append(clone)
             })
@@ -159,8 +159,7 @@ app.directive('newBar', function () {
 /*-----------------------------------------------------------------------*/
 
 
-
-app.directive('newTeg', function (){
+app.directive('newTeg', function () {
     return {
         restrict: 'E',
         templateUrl: 'element.html',
@@ -184,13 +183,13 @@ app.controller('newCtrl', function ($scope) {
     console.log('ctrl scope', $scope)
     $scope.arr = []
     $scope.hello = 'Hello'
-    
+
     $scope.posts = [
         {id: 1, name: 'post1'},
         {id: 2, name: 'post2'}
     ]
-    
-    $scope.getPosts = function (){
+
+    $scope.getPosts = function () {
         return $scope.posts
     }
 })
@@ -208,11 +207,11 @@ app.directive('post', function () {
 })
 /*-----------------------------------------------------------------------*/
 
-app.controller('bookCtrl', function ($scope){
+app.controller('bookCtrl', function ($scope) {
     $scope.name = 'AngularJS'
 })
 
-app.directive('bookDir', function (){
+app.directive('bookDir', function () {
     return {
         restrict: 'E',
         scope: true,
@@ -222,4 +221,32 @@ app.directive('bookDir', function (){
         }
     }
 })
+
 /*-----------------------------------------------------------------------*/
+
+app.controller('Ctrl1', function ($scope) {
+    $scope.name = 'Olga'
+    $scope.color = 'Red'
+
+    $scope.reverse = function (){
+        $scope.name = $scope.name.split('').reverse().join('')
+    }
+
+})
+
+app.directive('isolatedScope', function () {
+    return {
+        restrict: 'E',
+        scope: {
+            name: '@',
+            color: '=',
+            reverse: '&'
+        },
+        template: '<div>My wife name is {{name}}<input type="text" ng-model="name"></div>' +
+        '<div>My color is {{color}} <input type="text" ng-model="color"></div>' +
+        '<button ng-click="reverse()">Reverse Name</button>',
+        link: function (scope, element, attrs) {
+            console.log('isolatedScope')
+        }
+    }
+})
