@@ -1,4 +1,4 @@
-let app = angular.module("app", [])
+let app = angular.module("app", ['ngMockE2E'])
 
 app.controller("myCtrl", function ($scope) {
     $scope.hello = 55
@@ -164,7 +164,7 @@ app.directive('newTeg', function () {
         restrict: 'E',
         templateUrl: 'element.html',
         link: function (scope, element, attrs) {
-           /* console.log('directive')*/
+            /* console.log('directive')*/
         }
     }
 })
@@ -228,7 +228,7 @@ app.controller('Ctrl1', function ($scope) {
     $scope.name = 'Olga'
     $scope.color = 'Red'
 
-    $scope.reverse = function (){
+    $scope.reverse = function () {
         $scope.name = $scope.name.split('').reverse().join('')
     }
 
@@ -243,8 +243,8 @@ app.directive('isolatedScope', function () {
             reverse: '&'
         },
         template: '<div>My wife name is {{name}}<input type="text" ng-model="name"></div>' +
-        '<div>My color is {{color}} <input type="text" ng-model="color"></div>' +
-        '<button ng-click="reverse()">Reverse Name</button>',
+            '<div>My color is {{color}} <input type="text" ng-model="color"></div>' +
+            '<button ng-click="reverse()">Reverse Name</button>',
         link: function (scope, element, attrs) {
             console.log('isolatedScope')
         }
@@ -252,18 +252,58 @@ app.directive('isolatedScope', function () {
 })
 /*-----------------------------------------------------------------------------------------------------*/
 
-app.directive('wrapIn', function ($templateCache){
+app.directive('wrapIn', function ($templateCache) {
     return {
         transclude: 'element',
-        link: function (scope, element, attrs, ctrl, transclude){
+        link: function (scope, element, attrs, ctrl, transclude) {
             const template = $templateCache.get(attrs.wrapIn)
             const templateElement = angular.element(template)
             /*console.log('wrapIn', templateElement)*/
             transclude(scope, function (clone) {
-               /* console.log(clone)*/
+                /* console.log(clone)*/
                 element.after(templateElement.append(clone))
             })
         }
     }
 })
 /*--------------------------------------------------------------------------------------------------*/
+app.run(($httpBackend) => {
+    /*console.log('RUN APP')*/
+    const books = [
+        {name: 'AngularJS'},
+        {name: 'EmberJS'},
+        {name: 'ReactJS'}
+    ];
+    $httpBackend.whenGET('http://localhost:3001/books').respond(200, books)
+    $httpBackend.whenPOST('http://localhost:3001/books').respond(function (method, url, data) {
+       /* console.log('method', method);
+        console.log('url', url);
+        console.log('data', data);*/
+        const result = JSON.parse(data);
+        books.push(result);
+        return [200, result];
+    })
+})
+app.controller('httpCtrl', function ($http, $scope) {
+    $http.get("http://localhost:3001/books")
+        .then(function (result) {
+            console.log('success', result)
+            $scope.books = result.data
+        })
+        .then(function (result) {
+            console.log('error', result)
+        })
+    $scope.addBook = (book) => {
+        console.log(book)
+        $http.post("http://localhost:3001/books", book)
+            .then((result) => {
+                $scope.books.push(book)
+                $scope.book = null
+                console.log("Book success added")
+            })
+            .then((result) => {
+                console.log("Error added")
+            })
+    }
+})
+
