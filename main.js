@@ -164,7 +164,7 @@ app.directive('newTeg', function () {
         restrict: 'E',
         templateUrl: 'element.html',
         link: function (scope, element, attrs) {
-            console.log('directive')
+           /* console.log('directive')*/
         }
     }
 })
@@ -252,11 +252,18 @@ app.directive('isolatedScope', function () {
 })
 /*-----------------------------------------------------------------------------------------------------*/
 
-app.directive('wrapIn', function (){
+app.directive('wrapIn', function ($templateCache){
     return {
         transclude: 'element',
-        link: function (scope, element, attrs){
-            console.log('wrapIn')
+        link: function (scope, element, attrs, ctrl, transclude){
+            const template = $templateCache.get(attrs.wrapIn)
+            const templateElement = angular.element(template)
+            /*console.log('wrapIn', templateElement)*/
+            transclude(scope, function (clone) {
+               /* console.log(clone)*/
+                element.after(templateElement.append(clone))
+            })
         }
     }
 })
+/*--------------------------------------------------------------------------------------------------*/
