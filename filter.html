@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app-filter">
+<head>
+    <meta charset="UTF-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="filter.js"></script>
+    <title>Filter</title>
+</head>
+<body>
+<div ng-controller="filterCTRL" >
+    <label>
+        <input type="text" ng-model="str">       {{str| peopleFilter}}
+    </label>
+</div>
+</body>
+</html>

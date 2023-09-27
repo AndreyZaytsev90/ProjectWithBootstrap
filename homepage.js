@@ -37,6 +37,7 @@ app.controller('postCtrl', function ($scope, $routeParams, postsFactory) {
     /*console.log($routeParams.postId)*/
     let postId = Number($routeParams.postId)
     $scope.myPost = _.find(postsFactory, {id: postId});
+
 })
 
 app.factory('postsFactory', function () {
@@ -55,3 +56,7 @@ app.factory('postsFactory', function () {
         }
     ];
 })
+
+
+
+
