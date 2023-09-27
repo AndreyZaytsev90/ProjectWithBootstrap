@@ -1,4 +1,4 @@
-let app = angular.module("app", ['ngMockE2E'])
+let app = angular.module("app", ['ngMockE2E', 'ngRoute'])
 
 app.controller("myCtrl", function ($scope) {
     $scope.hello = 55
@@ -37,10 +37,10 @@ app.factory("myFactory", function () {
 
 app.controller("myBooks", function ($scope) {
     $scope.snowCSSbook = function () {
-        console.log("This is CSS book")
+        /*console.log("This is CSS book")*/
     }
     $scope.snowHTMLbook = function () {
-        console.log("This is HTML book")
+        /*console.log("This is HTML book")*/
     }
 })
 app.controller("HTMLbook", function ($scope) {
@@ -58,8 +58,8 @@ app.controller("firstController", function () {
 })
 
 app.controller("secondController", function ($scope) {
-    this.addLesson = () => console.log("Add new lesson")
-    $scope.secondCtrl = this
+    this.addLesson = () => /*console.log("Add new lesson")*/
+        $scope.secondCtrl = this
 })
 
 /*----------------------------------------------------------*/
@@ -79,7 +79,7 @@ app.directive('func', function () {
              console.log('attrs', attrs)
              element.text('This is my magic directive')*/
             element.on('click', function () {
-                console.log('click')
+                /*console.log('click')*/
                 element.text() === "Func" ? element.text('Bar') : element.text('Func')
             })
         }
@@ -111,7 +111,7 @@ app.directive('fooBar', function () {
     return {
         restrict: 'EAС',
         link: function () {
-            console.log('fooBar')
+            /*console.log('fooBar')*/
         }
     }
 })
@@ -128,10 +128,10 @@ app.directive('funcBar', function ($templateCache) {
         restrict: 'E',
         template: '<div ng-repeat="myBooks in bookmarks" class="text-warning">{{myBooks.name}}</div>',
         link: function (scope, element, attrs) {
-            console.log('funcBar')
+            /* console.log('funcBar')*/
             /*scope.name = 'Andrey'*/
             scope.bookmarks = myBookmarks
-            console.log($templateCache)
+            /*console.log($templateCache)*/
         },
     }
 })
@@ -147,9 +147,9 @@ app.directive('newBar', function () {
         transclude: true,
         template: 'This is my super directive <span ng-transclude></span>',
         link: function (scope, element, attrs, ctrl, transclude) {
-            console.log('This is my ditective')
+            /*console.log('This is my ditective')*/
             transclude(scope, function (clone, scope) {
-                console.log('!', clone, scope)
+                /*console.log('!', clone, scope)*/
                 element.append(clone)
             })
         }
@@ -180,7 +180,7 @@ app.run(function ($templateCache) {
 /*-----------------------------------------------------------------------*/
 
 app.controller('newCtrl', function ($scope) {
-    console.log('ctrl scope', $scope)
+    /*console.log('ctrl scope', $scope)*/
     $scope.arr = []
     $scope.hello = 'Hello'
 
@@ -200,7 +200,7 @@ app.directive('post', function () {
         template: '<span ng-repeat="post in getPosts()">{{post.name}}</span>',
         restrict: 'E',
         link: function (scope, element, attrs) {
-            console.log('dir scope', scope)
+            /*console.log('dir scope', scope)*/
             scope.hello = 'Hello Andrey'
         }
     }
@@ -217,7 +217,7 @@ app.directive('bookDir', function () {
         scope: true,
         template: '<div>This is directive book: {{name}}<input type="test" ng-model="name"></div>',
         link: function (scope, element, attrs) {
-            console.log(`This is directive book: ${scope.name}`)
+            /*console.log(`This is directive book: ${scope.name}`)*/
         }
     }
 })
@@ -246,7 +246,7 @@ app.directive('isolatedScope', function () {
             '<div>My color is {{color}} <input type="text" ng-model="color"></div>' +
             '<button ng-click="reverse()">Reverse Name</button>',
         link: function (scope, element, attrs) {
-            console.log('isolatedScope')
+            /*console.log('isolatedScope')*/
         }
     }
 })
@@ -276,9 +276,9 @@ app.run(($httpBackend) => {
     ];
     $httpBackend.whenGET('http://localhost:3001/books').respond(200, books)
     $httpBackend.whenPOST('http://localhost:3001/books').respond(function (method, url, data) {
-       /* console.log('method', method);
-        console.log('url', url);
-        console.log('data', data);*/
+        /* console.log('method', method);
+         console.log('url', url);
+         console.log('data', data);*/
         const result = JSON.parse(data);
         books.push(result);
         return [200, result];
@@ -287,23 +287,63 @@ app.run(($httpBackend) => {
 app.controller('httpCtrl', function ($http, $scope) {
     $http.get("http://localhost:3001/books")
         .then(function (result) {
-            console.log('success', result)
+            /*console.log('success', result)*/
             $scope.books = result.data
         })
         .then(function (result) {
-            console.log('error', result)
+            /*console.log('error', result)*/
         })
     $scope.addBook = (book) => {
-        console.log(book)
+        /*console.log(book)*/
         $http.post("http://localhost:3001/books", book)
             .then((result) => {
                 $scope.books.push(book)
                 $scope.book = null
-                console.log("Book success added")
+                /*console.log("Book success added")*/
             })
             .then((result) => {
                 console.log("Error added")
             })
     }
 })
+
+/*---------------------------------------------------------------------------------------------------*/
+
+app.directive('uiSource', function () {
+    return {
+        compile: function (elem) {
+            /*console.log(elem);*/
+            /*const escape = function (content) {
+                return content.replace('/\</g', '&lt;')
+                    .replace('/\>/g', '&gt;');
+            };
+            const pre = angular.element('<pre class="prettyprint"></pre>');
+            const pretty = prettyPrintOne(escape(elem.html()));
+            /!*console.log(pretty);*!/
+            pre.append(pretty);
+            elem.replaceWith(pre);*/
+        }
+
+    }
+})
+
+/*-----------------------------------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
